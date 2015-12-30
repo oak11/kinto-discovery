@@ -20,7 +20,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
+        <li class="active"><a id="login" href="#">Login with Firefox Account</a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -86,9 +86,42 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-<script src="js/user.js"></script>
 <script>
-function newLocation()
-{ window.location="https://kinto.dev.mozaws.net/v1/fxa-oauth/login?redirect=http://natim.github.io/get_fxa_token/%23"; }
+  //
+  // Firefox Account login
+  //
+  var storageServer = "https://kinto.dev.mozaws.net/v1"
+  function loginURI(website) {
+    var currentWebsite = website.replace(/#.*/, '');
+    var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
+    var redirect = encodeURIComponent(currentWebsite + '#fxa:');
+    return login + redirect;
+  }
+
+  var uri = loginURI(window.location.href);
+
+  document.getElementById('login').setAttribute('href', uri);
+
+  var hash = location.hash;
+  var headers = {};
+
+  if (hash.indexOf('#fxa:') == 0) {
+    // We've got a token
+    headers['Authorization'] = 'Bearer ' + hash.slice(5);
+    var result = fetch(storageServer + '/', {headers: headers})
+      .then(function (result) {
+        return result.json();
+      })
+      .then(function (result) {
+        return result.user.id;
+      })
+      .then(function(user_id) {
+        console.log(user_id);
+      });
+  }
+
+function newLocation() {
+  window.location=uri;
+}
 </script>
 </body>
