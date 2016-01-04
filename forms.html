@@ -236,7 +236,26 @@
 
                         </form>
                         <hr>
-                        <ul id="tasks" class="list-group"></ul>
+                            <div class="row">
+
+                                <ul id="tasks" class="list-group"></ul>
+                                <button id="clearCompleted" class="btn">Clear completed</button>
+                                <button id="sync" class="btn">Synchronize</button>
+
+
+                            </div>
+                            <template id="task-tpl">
+                              <li class="list-group-item">
+                                <label>
+                                  <input class="done" type="checkbox">
+                                  <span class="title"></span><br>
+                                  <span class="uuid"></span>
+                                </label>
+                                <br>
+                                <span class="url"></span>
+                              </li>
+                            </template>
+                          </div>
                         <br>
                         <p>For complete documentation, please visit <a href="https://kinto.readthedocs.org/en/latest/">Kinto documentation</a>.</p>
                     </div>
@@ -259,7 +278,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
+    <script src="js/md5.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="http://npmcdn.com/kinto@1.1.2/dist/kinto-1.1.2.js"></script>
