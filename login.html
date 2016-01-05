@@ -20,7 +20,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a id="login" href="#">Login with Firefox Account</a></li>
+
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -82,6 +82,21 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<div class= 'col-md-6'>
+  <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+     <div class="form-group">
+       <label>Enter URL of your Kinto server</label>
+       <input type="text" class="form-control" id="kinto_server" placeholder="kinto server url" required>
+    </div>
+    <div>
+      <br>
+      <button class="submit"><a id="login" href="#">Connect to Kinto</a></button>
+    </div>
+  </form>
+</div>
+
+
 <script src="js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
@@ -90,8 +105,8 @@
 <script>
   //
   // Firefox Account login
-  //
-  var storageServer = "https://kinto.dev.mozaws.net/v1"
+  // get from form: server location
+  var storageServer = document.getElementById('kinto_server').value;
   function loginURI(website) {
     var currentWebsite = website.replace(/#.*/, '');
     var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
