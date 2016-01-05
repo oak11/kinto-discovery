@@ -89,7 +89,7 @@
        <label>Enter URL of your Kinto server</label>
        <input type="text" id="kinto_server" name="server" placeholder="kinto server url" required>
        <br>
-         <button><a id="login" href="#">Connect to Kinto</a></button>
+         <button type="button" onclick="authenticate(); return false;" id="login" href="#">Connect to Kinto</a></button>
     </div>
   </form>
 </div>
@@ -104,19 +104,22 @@
   //
   // Firefox Account login
   // get from form: server location
-  var storageServer = document.getElementsByName("server")[0].value;
-  function loginURI(website) {
-    var currentWebsite = website.replace(/#.*/, '');
-    var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
-    var redirect = encodeURIComponent(currentWebsite + '#fxa:');
-    return login + redirect;
-  }
 
-  var uri = loginURI(window.location.href);
+  function authenticate(){
+     var storageServer = document.getElementById("kinto_server").value;
+     function loginURI(website) {
+        var currentWebsite = website.replace(/#.*/, '');
+        var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
+        var redirect = encodeURIComponent(currentWebsite + '#fxa:');
+        return login + redirect;
+        }
 
-  document.getElementById('login').setAttribute('href', uri);
-
-  var hash = location.hash;
+     var uri = loginURI(window.location.href);
+     window.location = uri;
+   }
+// document.getElementById('login').setAttribute('href', uri);
+//  if (window.location.hash.slice(1))
+  var hash = window.location.hash;
   var headers = {};
 
   if (hash.indexOf('#fxa:') == 0) {
@@ -137,6 +140,6 @@
 function newLocation() {
   window.location=uri;
 }
-
+}
 </script>
 </body>
