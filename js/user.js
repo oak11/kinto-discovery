@@ -1,5 +1,6 @@
 function main() {
   var db = new Kinto({
+//--location of form, whats inside remote
     remote: "https://kinto.dev.mozaws.net/v1/",
     headers: {Authorization: "Basic " + btoa("user:pass")}
   });
@@ -12,7 +13,7 @@ function main() {
       tasks.create({
         title: event.target.title.value,
         url: event.target.url.value,
-        
+
       })
       .then(function(res) {
         event.target.title.value = "";
