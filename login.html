@@ -106,7 +106,8 @@
   // get from form: server location
 
   function authenticate(){
-     var storageServer = document.getElementById("kinto_server").value;
+      var storageServer = document.getElementById("kinto_server").value;
+      sessionStorage.setItem('kinto_server',storageServer);
      function loginURI(website) {
         var currentWebsite = website.replace(/#.*/, '');
         var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
@@ -116,6 +117,7 @@
 
      var uri = loginURI(window.location.href);
      window.location = uri;
+
    }
 // document.getElementById('login').setAttribute('href', uri);
 //  if (window.location.hash.slice(1))
@@ -124,6 +126,7 @@
 
   if (hash.indexOf('#fxa:') == 0) {
     // We've got a token
+    storageServer = sessionStorage.getItem('kinto_server');
     headers['Authorization'] = 'Bearer ' + hash.slice(5);
     var result = fetch(storageServer + '/', {headers: headers})
       .then(function (result) {
