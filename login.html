@@ -148,7 +148,6 @@
           url: sessionStorage.getItem('kinto_server'),
           user_id: sessionStorage.getItem('user_id')
          })
-        .then(render)
         .catch(function(err) {
           console.error(err);
         });
