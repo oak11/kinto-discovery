@@ -96,7 +96,7 @@
 
 
 <script src="js/jquery.js"></script>
-
+<script src="https://npmcdn.com/kinto@1.1.2/dist/kinto-1.1.2.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
@@ -138,6 +138,20 @@
       .then(function(user_id) {
         console.log(user_id);
         sessionStorage.setItem('user_id',user_id);
+        var db = new Kinto({
+      //--location of form, whats inside remote
+          remote: sessionStorage.getItem("kinto_server"),
+          headers: {Authorization: "Basic " + btoa("user:pass")}
+        });
+        var user = db.collection("user");
+        user.create({
+          url: sessionStorage.getItem('kinto_server'),
+          user_id: sessionStorage.getItem('user_id')
+         })
+        .then(render)
+        .catch(function(err) {
+          console.error(err);
+        });
       });
   }
 
