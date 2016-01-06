@@ -13,7 +13,7 @@ function main() {
       tasks.create({
         title: event.target.title.value,
         url: event.target.url.value,
-        user_id: user_id
+        user_id: sessionStorage.getItem('user_id')
        })
       .then(function(res) {
         event.target.title.value = "";
