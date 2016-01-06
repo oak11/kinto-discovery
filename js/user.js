@@ -1,7 +1,7 @@
 function main() {
   var db = new Kinto({
 //--location of form, whats inside remote
-    remote: "https://kinto.dev.mozaws.net/v1/",
+    remote: sessionStorage.getItem("kinto_server"),
     headers: {Authorization: "Basic " + btoa("user:pass")}
   });
   var tasks = db.collection("user");
@@ -13,8 +13,8 @@ function main() {
       tasks.create({
         title: event.target.title.value,
         url: event.target.url.value,
-
-      })
+        user_id: user_id
+       })
       .then(function(res) {
         event.target.title.value = "";
         event.target.url.value = ""
@@ -87,6 +87,7 @@ function main() {
     li.querySelector(".title").textContent = task.title;
     li.querySelector(".uuid").textContent = task.id;
     li.querySelector(".url").textContent = task.url;
+    li.querySelector(".user_id").textContent = task.user_id;
     // retrieve a reference to the checkbox element
     var checkbox = li.querySelector(".done");
     // initialize it with task status
