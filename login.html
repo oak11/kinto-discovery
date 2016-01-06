@@ -106,7 +106,7 @@
   // get from form: server location
 
   function authenticate(){
-      var storageServer = document.getElementById("kinto_server").value;
+      var storageServer = "https://kinto.dev.mozaws.net/v1";
       sessionStorage.setItem('kinto_server',storageServer);
      function loginURI(website) {
         var currentWebsite = website.replace(/#.*/, '');
@@ -144,6 +144,11 @@
           headers: {Authorization: "Basic " + btoa("user:pass")}
         });
         var user = db.collection("user");
+        if (user.user_id == user_id){
+
+            //list users
+        }
+        else{
         user.create({
           url: sessionStorage.getItem('kinto_server'),
           user_id: sessionStorage.getItem('user_id')
@@ -153,7 +158,7 @@
         });
       });
   }
-
+}
 function newLocation() {
   window.location=uri;
 }
