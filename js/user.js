@@ -38,43 +38,21 @@ if (hash.indexOf('#fxa:') == 0) {
         headers: {Authorization: "Basic " + btoa("user:pass")}
       });
       var users = db.collection("user");
-/*
-      function renderUser(user) {
-         var li = document.createElement("li");
-         li.classList.add("list-group-item");
-         li.innerHTML = user.title;
-         return li;
-        }
 
-     function renderTasks(tasks) {
-        var ul = document.getElementById("tasks");
-        ul.innerHTML = "";
-        tasks.forEach(function(task) {
-          ul.appendChild(renderTask(task));
-          });
-        }
-
-      function render() {
-        tasks.list().then(function(res) {
-          renderTasks(res.data);
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
-      }
     //  if (users.forEach(users.user_id) == user_id){
 
           //list users
       //}
-*/
+
       users.create({
         url: sessionStorage.getItem('kinto_server'),
         user_id: sessionStorage.getItem('user_id')
        })
-      .then(newLocation())
+
       .catch(function(err) {
         console.error(err);
       });
+      newLocation();
     });
   }
 function newLocation() {
