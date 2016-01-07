@@ -38,7 +38,7 @@ if (hash.indexOf('#fxa:') == 0) {
         headers: {Authorization: "Basic " + btoa("user:pass")}
       });
       var users = db.collection("user");
-
+/*
       function renderUser(user) {
          var li = document.createElement("li");
          li.classList.add("list-group-item");
@@ -66,13 +66,12 @@ if (hash.indexOf('#fxa:') == 0) {
 
           //list users
       //}
-
+*/
       users.create({
         url: sessionStorage.getItem('kinto_server'),
         user_id: sessionStorage.getItem('user_id')
        })
-      .then(render)
-      .then(newLocation)
+      .then(newLocation())
       .catch(function(err) {
         console.error(err);
       });
