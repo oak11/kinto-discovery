@@ -143,19 +143,46 @@
           remote: sessionStorage.getItem("kinto_server"),
           headers: {Authorization: "Basic " + btoa("user:pass")}
         });
-        var user = db.collection("user");
+        var users = db.collection("user");
+
+        function renderUser(user) {
+           var li = document.createElement("li");
+           li.classList.add("list-group-item");
+           li.innerHTML = user.title;
+           return li;
+          }
+
+       function renderTasks(tasks) {
+          var ul = document.getElementById("tasks");
+          ul.innerHTML = "";
+          tasks.forEach(function(task) {
+            ul.appendChild(renderTask(task));
+            });
+          }
+
+        function render() {
+          tasks.list().then(function(res) {
+            renderTasks(res.data);
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+        }
+
+
         if (user.user_id == user_id){
 
             //list users
         }
         else{
-        user.create({
+        users.create({
           url: sessionStorage.getItem('kinto_server'),
           user_id: sessionStorage.getItem('user_id')
          })
+        .then(render)
         .catch(function(err) {
           console.error(err);
-        });} 
+        });}
       });
 
 }
