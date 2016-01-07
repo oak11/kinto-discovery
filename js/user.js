@@ -8,13 +8,12 @@ function authenticate(){
       var redirect = encodeURIComponent(currentWebsite + '#fxa:');
       return login + redirect;
       }
-   
+
    var uri = loginURI(window.location.href);
    window.location = uri;
 
  }
-// document.getElementById('login').setAttribute('href', uri);
-//  if (window.location.hash.slice(1))
+
 var hash = window.location.hash;
 var headers = {};
 
