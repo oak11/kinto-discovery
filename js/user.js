@@ -8,7 +8,7 @@ function authenticate(){
       var redirect = encodeURIComponent(currentWebsite + '#fxa:');
       return login + redirect;
       }
-   sessionStorage.setItem('origin', )
+   
    var uri = loginURI(window.location.href);
    window.location = uri;
 
