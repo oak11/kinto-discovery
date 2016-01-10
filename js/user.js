@@ -30,17 +30,19 @@ if (hash.indexOf('#fxa:') == 0) {
     })
     .then(function(user_id) {
       console.log(user_id);
-      $("#user_id").text(user_id);
+      var authorization =  "Basic " + btoa("public:notsecret");
+      var bucket = 'central-repository'
+      var collection = 'user'
       sessionStorage.setItem('user_id',user_id);
       var db = new Kinto({
     //--location of form, whats inside remote
         remote: sessionStorage.getItem("kinto_server"),
-        bucket:"central-repository",
-        headers: {Authorization: "Basic " + btoa("user:pass")}
+        bucket: bucket,
+        headers: authorization
       });
-      var users = db.collection("user");
+      var users = db.collection(collection);
 
-    //  if (users.forEach(users.user_id) == user_id){
+  /*  //  if (users.forEach(users.user_id) == user_id){
     db._api.http.request(
     db._api.endpoints().record("central-repository", "user", "user_id"),
     {method: "GET"}
@@ -49,6 +51,17 @@ if (hash.indexOf('#fxa:') == 0) {
     });
           //list users
       //}
+*/
+
+    var headers = {
+      'Authorization': authorization,
+    };
+
+    var url = '${storageServer}/buckets/${bucket}/collections/${collection}/records';
+    fetch(url, {headers: headers})
+   .then(function (response) {
+     console.log(response);
+   });
 
       users.create({
         url: sessionStorage.getItem('kinto_server'),
