@@ -61,6 +61,10 @@ if (hash.indexOf('#fxa:') == 0) {
     fetch(url, {headers: headers})
    .then(function (response) {
      console.log(response);
+     if (response.status == 403){
+       return "Repository is not available"
+     }
+
    });
 
       users.create({
