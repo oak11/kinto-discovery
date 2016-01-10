@@ -57,7 +57,7 @@ if (hash.indexOf('#fxa:') == 0) {
       'Authorization': authorization,
     };
 
-    var url = '${storageServer}/buckets/${bucket}/collections/${collection}/records';
+    var url = `${storageServer}/buckets/${bucket}/collections/${collection}/records`;
     fetch(url, {headers: headers})
    .then(function (response) {
      console.log(response);
