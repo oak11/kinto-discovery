@@ -67,7 +67,7 @@ if (hash.indexOf('#fxa:') == 0) {
 
    })
    .catch(function (err) {
-        if (err.status == 403) {
+        if (err.code == 403) {
           console.log('cannot reach server');
           return;
         }
