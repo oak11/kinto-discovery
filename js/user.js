@@ -35,12 +35,18 @@ if (hash.indexOf('#fxa:') == 0) {
       var db = new Kinto({
     //--location of form, whats inside remote
         remote: sessionStorage.getItem("kinto_server"),
+        bucket:"central-repository",
         headers: {Authorization: "Basic " + btoa("user:pass")}
       });
       var users = db.collection("user");
 
     //  if (users.forEach(users.user_id) == user_id){
-
+    db._api.http.request(
+    db._api.endpoints().record("central-repository", "user", "user_id"),
+    {method: "GET"}
+    ).then((resp) => {
+      console.log(resp);
+    });
           //list users
       //}
 
