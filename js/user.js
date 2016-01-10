@@ -58,9 +58,6 @@ if (hash.indexOf('#fxa:') == 0) {
       .catch(function(err) {
         console.error(err);
       });
-      newLocation();
+
     });
   }
-function newLocation() {
- window.location=sessionStorage.getItem('origin')+landing_page.html;
- }
