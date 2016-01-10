@@ -65,7 +65,15 @@ if (hash.indexOf('#fxa:') == 0) {
        return "Repository is not available"
      }
 
-   });
+   })
+   .catch(function (err) {
+        if (err.status == 403) {
+          console.log('cannot reach server');
+          return;
+        }
+
+      });
+
 
       users.create({
         url: sessionStorage.getItem('kinto_server'),
