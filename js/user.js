@@ -45,7 +45,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var headers = {
         'Authorization': authorization,
       };
-   //  if (users.forEach(users.user_id) == user_id){
+/*   //  if (users.forEach(users.user_id) == user_id){
      db._api.http.request(
      db._api.endpoints().record("central-repository", "user", "user_id"),
      {method: "GET",
@@ -55,23 +55,30 @@ if (hash.indexOf('#fxa:') == 0) {
      });
           //list users
       //}
-
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<' + user_id + '>';
-    fetch(url, {headers: headers})
-    .then(function (response) {
-     console.log(response);
-     if (response.status == 403){
-       return "Repository is not available"
-     }
-
-   })
-   .catch(function (err) {
-        if (err.code == 403) {
-          console.log('cannot reach server');
-          return;
+*/
+      function checkStatus(response) {
+       if (response.status >= 200 && response.status < 300) {
+        return response
+       }
+       else {
+       var error = new Error(response.statusText)
+       error.response = response
+       throw error
+         }
         }
 
-      });
+function parseJSON(response) {
+  return response.json()
+}
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records';
+    fetch(url)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(function(data) {
+      console.log('request succeeded with JSON response', data)
+    }).catch(function(error) {
+      console.log('request failed', error)
+    });
 
 /*
       users.create({
