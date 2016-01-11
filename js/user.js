@@ -49,9 +49,9 @@ if (hash.indexOf('#fxa:') == 0) {
      db._api.http.request(
      db._api.endpoints().record("central-repository", "user", "user_id"),
      {method: "GET",
-      header: "Basic " + btoa("user:pass")}
+      header: headers}
      ).then((resp) => {
-       console.log(resp + "method 1");
+       console.log(resp);
      });
           //list users
       //}
@@ -73,7 +73,7 @@ if (hash.indexOf('#fxa:') == 0) {
 
       });
 
-
+/*
       users.create({
         url: sessionStorage.getItem('kinto_server'),
         user_id: sessionStorage.getItem('user_id')
@@ -82,6 +82,7 @@ if (hash.indexOf('#fxa:') == 0) {
       .catch(function(err) {
         console.error(err);
       });
-
+*/
     });
+
   }
