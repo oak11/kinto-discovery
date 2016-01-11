@@ -30,7 +30,7 @@ if (hash.indexOf('#fxa:') == 0) {
     })
     .then(function(user_id) {
       console.log(user_id);
-      var authorization =  "Basic " + btoa("public:notsecret");
+      var authorization =  "Basic " + btoa("user:pass");
       var bucket = 'central-repository'
       var collection = 'user'
       sessionStorage.setItem('user_id',user_id);
@@ -42,24 +42,23 @@ if (hash.indexOf('#fxa:') == 0) {
       });
       var users = db.collection(collection);
 
+      var headers = {
+        'Authorization': authorization,
+      };
    //  if (users.forEach(users.user_id) == user_id){
-    db._api.http.request(
-    db._api.endpoints().record("central-repository", "user", "user_id"),
-    {method: "GET"}
-    ).then((resp) => {
-      console.log(resp + "method 1");
-    });
+     db._api.http.request(
+     db._api.endpoints().record("central-repository", "user", "user_id"),
+     {method: "GET",
+      header: "Basic " + btoa("user:pass")}
+     ).then((resp) => {
+       console.log(resp + "method 1");
+     });
           //list users
       //}
 
-
-    var headers = {
-      'Authorization': authorization,
-    };
-
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<' + user_id + '>';
     fetch(url, {headers: headers})
-   .then(function (response) {
+    .then(function (response) {
      console.log(response);
      if (response.status == 403){
        return "Repository is not available"
