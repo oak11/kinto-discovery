@@ -5,7 +5,7 @@ function authenticate(){
       var currentWebsite = website.replace(/#.*/, '');
       sessionStorage.setItem('origin', currentWebsite.slice(0,38)); //find a better way- more generalized
       var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
-      var redirect = encodeURIComponent(sessionStorage.getItem('origin') + 'landing_page.html' + '#fxa:');
+      var redirect = encodeURIComponent(currentWebsite + '#fxa:');
       return login + redirect;
       }
 
@@ -38,13 +38,11 @@ if (hash.indexOf('#fxa:') == 0) {
     //--location of form, whats inside remote
         remote: sessionStorage.getItem("kinto_server"),
         bucket: bucket,
-        headers: authorization
+        headers: {'Authorization': authorization}
       });
       var users = db.collection(collection);
 
-      var headers = {
-        'Authorization': authorization,
-      };
+
 /*   //  if (users.forEach(users.user_id) == user_id){
      db._api.http.request(
      db._api.endpoints().record("central-repository", "user", "user_id"),
