@@ -5,7 +5,7 @@ function authenticate(){
       var currentWebsite = website.replace(/#.*/, '');
       sessionStorage.setItem('origin', currentWebsite.slice(0,32));
       var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
-      var redirect = encodeURIComponent(currentWebsite + '#fxa:');
+      var redirect = encodeURIComponent(sessionStorage.getItem('origin') + '/landing_page.html' + '#fxa:');
       return login + redirect;
       }
 
