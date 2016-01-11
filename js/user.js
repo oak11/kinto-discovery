@@ -3,9 +3,9 @@ function authenticate(){
     sessionStorage.setItem('kinto_server',storageServer);
    function loginURI(website) {
       var currentWebsite = website.replace(/#.*/, '');
-      sessionStorage.setItem('origin', currentWebsite.slice(0,32));
+      sessionStorage.setItem('origin', currentWebsite.slice(0,38)); //find a better way- more generalized
       var login = storageServer.replace("v1", "v1/fxa-oauth/login?redirect=");
-      var redirect = encodeURIComponent(sessionStorage.getItem('origin') + '/landing_page.html' + '#fxa:');
+      var redirect = encodeURIComponent(sessionStorage.getItem('origin') + 'landing_page.html' + '#fxa:');
       return login + redirect;
       }
 
