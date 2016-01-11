@@ -42,16 +42,16 @@ if (hash.indexOf('#fxa:') == 0) {
       });
       var users = db.collection(collection);
 
-  /*  //  if (users.forEach(users.user_id) == user_id){
+   //  if (users.forEach(users.user_id) == user_id){
     db._api.http.request(
     db._api.endpoints().record("central-repository", "user", "user_id"),
     {method: "GET"}
     ).then((resp) => {
-      console.log(resp);
+      console.log(resp + "method 1");
     });
           //list users
       //}
-*/
+
 
     var headers = {
       'Authorization': authorization,
