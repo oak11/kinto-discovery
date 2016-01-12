@@ -30,7 +30,7 @@ if (hash.indexOf('#fxa:') == 0) {
     })
     .then(function(user_id) {
       console.log(user_id);
-      var authorization =  "Basic " + btoa("user:pass");
+      var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
       var collection = 'user'
       sessionStorage.setItem('user_id',user_id);
