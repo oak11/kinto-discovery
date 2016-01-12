@@ -32,7 +32,7 @@ if (hash.indexOf('#fxa:') == 0) {
       console.log(user_id);
       var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
-      var collection = 'user'
+      var collection = 'users'
       sessionStorage.setItem('user_id',user_id);
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
