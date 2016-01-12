@@ -49,7 +49,7 @@ function parseJSON(response) {
   return response.json()
 }
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records';
-    fetch(url, {'Authorization': authorization})
+    fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
     .then(parseJSON)
     .then(function(data) {
