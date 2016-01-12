@@ -34,26 +34,6 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository'
       var collection = 'user'
       sessionStorage.setItem('user_id',user_id);
-      var db = new Kinto({
-    //--location of form, whats inside remote
-        remote: sessionStorage.getItem("kinto_server"),
-        bucket: bucket,
-        headers: {'Authorization': authorization}
-      });
-      var users = db.collection(collection);
-
-
-/*   //  if (users.forEach(users.user_id) == user_id){
-     db._api.http.request(
-     db._api.endpoints().record("central-repository", "user", "user_id"),
-     {method: "GET",
-      header: headers}
-     ).then((resp) => {
-       console.log(resp);
-     });
-          //list users
-      //}
-*/
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
         return response
@@ -77,6 +57,27 @@ function parseJSON(response) {
     }).catch(function(error) {
       console.log('request failed', error)
     });
+
+      var db = new Kinto({
+    //--location of form, whats inside remote
+        remote: sessionStorage.getItem("kinto_server"),
+        bucket: bucket,
+        headers: {'Authorization': authorization}
+      });
+      var users = db.collection(collection);
+
+
+/*   //  if (users.forEach(users.user_id) == user_id){
+     db._api.http.request(
+     db._api.endpoints().record("central-repository", "user", "user_id"),
+     {method: "GET",
+      header: headers}
+     ).then((resp) => {
+       console.log(resp);
+     });
+          //list users
+      //}
+*/
 
 /*
       users.create({
