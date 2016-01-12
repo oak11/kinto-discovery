@@ -58,7 +58,7 @@ function parseJSON(response) {
       console.log('request failed', error)
     });
 
-      var db = new Kinto({
+/*      var db = new Kinto({
     //--location of form, whats inside remote
         remote: sessionStorage.getItem("kinto_server"),
         bucket: bucket,
@@ -67,7 +67,7 @@ function parseJSON(response) {
       var users = db.collection(collection);
 
 
-/*   //  if (users.forEach(users.user_id) == user_id){
+   //  if (users.forEach(users.user_id) == user_id){
      db._api.http.request(
      db._api.endpoints().record("central-repository", "user", "user_id"),
      {method: "GET",
