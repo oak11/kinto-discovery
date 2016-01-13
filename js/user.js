@@ -33,7 +33,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
       var collection = 'users'
-      sessionStorage.setItem('user_id',user_id);
+      sessionStorage.setItem('user_id','12345');
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
@@ -52,7 +52,7 @@ if (hash.indexOf('#fxa:') == 0) {
 function parseJSON(response) {
   return response.json()
 }
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ user_id +'>';
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ sessionStorage.getItem('user_id') +'>';
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
     .then(parseJSON)
