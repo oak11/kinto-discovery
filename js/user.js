@@ -37,7 +37,8 @@ if (hash.indexOf('#fxa:') == 0) {
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
-        return response.statusText
+         console.console.log(response.statusText);
+        return response
        }
        else {
            fetch(url,{ method:'put',
@@ -60,7 +61,7 @@ function parseJSON(response) {
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 'hi' +'>';
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
-    .then(parseJSON)
+  //  .then(parseJSON)
     .then(function(data) {
       console.log('request succeeded with JSON response', data)
     }).catch(function(error) {
