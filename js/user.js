@@ -57,7 +57,7 @@ if (hash.indexOf('#fxa:') == 0) {
 function parseJSON(response) {
   return response.json()
 }
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ sessionStorage.getItem('user_id') +'>';
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 'hello' +'>';
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
     .then(parseJSON)
