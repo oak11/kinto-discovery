@@ -36,14 +36,14 @@ if (hash.indexOf('#fxa:') == 0) {
     //  sessionStorage.setItem('user_id','1234545678yoo ');
 
       function checkStatus(response) {
-       if (response.status >= 200 && response.status < 300) {
-         console.log(response.statusText);
+       if (response.status >= 200 && response.status < 300) { //this indicates that record is already present in central repository
+         console.log(response.statusText);   //returns ok even if record isnt present
         return response
        }
        else {
            fetch(url,{ method:'put',
             headers: {'Authorization': authorization},
-            body: JSON.stringify({
+            body: JSON.stringify({        //to pass data for new record (should run in case record does not exist)
                 data:{user_id: sessionStorage.getItem('user_id'),
                       url: sessionStorage.getItem('kinto_server')
               }})
@@ -59,6 +59,7 @@ function parseJSON(response) {
   return response.json()
 }
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 'yo' +'>';
+    //above although filter for unknown user id is used, it shows that the record exists
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
   //  .then(parseJSON)
