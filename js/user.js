@@ -37,7 +37,7 @@ if (hash.indexOf('#fxa:') == 0) {
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
-         console.console.log(response.statusText);
+         console.log(response.statusText);
         return response
        }
        else {
@@ -58,7 +58,7 @@ if (hash.indexOf('#fxa:') == 0) {
 function parseJSON(response) {
   return response.json()
 }
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 'hi' +'>';
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 'yo' +'>';
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
   //  .then(parseJSON)
