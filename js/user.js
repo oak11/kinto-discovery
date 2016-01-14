@@ -52,7 +52,7 @@ if (hash.indexOf('#fxa:') == 0) {
        error.response = response
        throw error
          }
-        }
+       });
 
 function parseJSON(response) {
   return response.json()
