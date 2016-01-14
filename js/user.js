@@ -33,7 +33,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
       var collection = 'users'
-      sessionStorage.setItem('user_id','12345');
+      sessionStorage.setItem('user_id','1234545678');
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
@@ -44,7 +44,7 @@ if (hash.indexOf('#fxa:') == 0) {
            fetch(url,{ method:'put',
             headers: {'Authorization': authorization},
             body: JSON.stringify({
-                user_id: user_id,
+                user_id: sessionStorage.getItem('user_id'),
                 url: sessionStorage.getItem('kinto_server')
                 })
               })
