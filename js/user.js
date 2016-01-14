@@ -34,7 +34,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository'
       var collection = 'users'
     //  sessionStorage.setItem('user_id','1234545678yoo ');
-  }
+  });
 }
 
   var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ '123456789921' +'>';
