@@ -35,6 +35,18 @@ if (hash.indexOf('#fxa:') == 0) {
       var collection = 'users'
     //  sessionStorage.setItem('user_id','1234545678yoo ');
   }
+}
+
+  var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ '123456789921' +'>';
+  fetch(url,{ headers: {'Authorization': authorization}})
+  .then(checkStatus)
+  .then(parseJSON)
+  .then(function(data) {
+    console.log('request succeeded with JSON response', data)
+  }).catch(function(error) {
+    console.log('request failed', error)
+  });
+
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
         return response
@@ -58,14 +70,3 @@ if (hash.indexOf('#fxa:') == 0) {
 function parseJSON(response) {
   return response.json()
 }
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ '123456789921' +'>';
-    fetch(url,{ headers: {'Authorization': authorization}})
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(function(data) {
-      console.log('request succeeded with JSON response', data)
-    }).catch(function(error) {
-      console.log('request failed', error)
-    });    });
-
-  }
