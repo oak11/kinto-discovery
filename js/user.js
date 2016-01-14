@@ -67,4 +67,4 @@ function parseJSON(response) {
       console.log('request failed', error)
     });
 
-  });
+  }); }
