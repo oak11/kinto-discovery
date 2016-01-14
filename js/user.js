@@ -41,7 +41,13 @@ if (hash.indexOf('#fxa:') == 0) {
        }
        else {
          if (response.status == 404){
-           fetch(url,{ method:'post', headers: {'Authorization': authorization}})
+           fetch(url,{ method:'put',
+            headers: {'Authorization': authorization},
+            body: JSON.stringify({
+                user_id: user_id,
+                url: sessionStorage.getItem('kinto_server')
+                })
+              })
          }
        var error = new Error(response.statusText)
        error.response = response
