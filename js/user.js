@@ -34,7 +34,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository'
       var collection = 'users'
     //  sessionStorage.setItem('user_id','1234545678yoo ');
-
+  }
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) {
         return response
@@ -53,12 +53,12 @@ if (hash.indexOf('#fxa:') == 0) {
        error.response = response
        throw error
          }
-        }
+
 
 function parseJSON(response) {
   return response.json()
 }
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ sessionStorage.getItem('user_id') +'>';
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 123456789921 +'>';
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
     .then(parseJSON)
