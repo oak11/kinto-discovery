@@ -35,10 +35,10 @@ if (hash.indexOf('#fxa:') == 0) {
       var collection = 'users'
       var hash = md5(user_id);
       var input = string2ascii(hash);
-      var userId = uuid.v4({random: input});
+      var user_record_id = uuid.v4({random: input});
 
     //  sessionStorage.setItem('user_id','1234545678yoo ');
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ userId +'>';
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
     //above although filter for unknown user id is used, it shows that the record exists
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
@@ -56,19 +56,21 @@ if (hash.indexOf('#fxa:') == 0) {
         return response
        }
        else {
+         if( response.status == 404){
            fetch(url,{ method:'put',
             headers: {'Authorization': authorization},
             body: JSON.stringify({        //to pass data for new record (should run in case record does not exist)
-                data:{user_id: sessionStorage.getItem('user_id'),
+                data:{//user_id: sessionStorage.getItem('user_id'),
                       url: sessionStorage.getItem('kinto_server')
               }})
               })
          }
+         else{
        var error = new Error(response.statusText)
        error.response = response
        throw error
-         }
-
+     }}
+}
 
 function parseJSON(response) {
   return response.json()
@@ -76,3 +78,9 @@ function parseJSON(response) {
 
 
   }); }
+  function string2ascii(str) {
+    var cc = [];
+    for(var i = 0; i < str.length; ++i)
+      cc.push(str.charCodeAt(i));
+    return cc;
+  }
