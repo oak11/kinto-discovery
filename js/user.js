@@ -33,7 +33,22 @@ if (hash.indexOf('#fxa:') == 0) {
       var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
       var collection = 'users'
+      var hash = md5(user_id);
+      var input = string2ascii(hash);
+      var userId = uuid.v4({random: input});
+
     //  sessionStorage.setItem('user_id','1234545678yoo ');
+    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ userId +'>';
+    //above although filter for unknown user id is used, it shows that the record exists
+    fetch(url,{ headers: {'Authorization': authorization}})
+    .then(checkStatus)
+  //  .then(parseJSON)
+    .then(function(data) {
+      console.log('request succeeded with JSON response', data)
+    }).catch(function(error) {
+      console.log('request failed', error)
+    });
+
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) { //this indicates that record is already present in central repository
@@ -58,15 +73,6 @@ if (hash.indexOf('#fxa:') == 0) {
 function parseJSON(response) {
   return response.json()
 }
-    var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records?user_id=<'+ 'yo' +'>';
-    //above although filter for unknown user id is used, it shows that the record exists
-    fetch(url,{ headers: {'Authorization': authorization}})
-    .then(checkStatus)
-  //  .then(parseJSON)
-    .then(function(data) {
-      console.log('request succeeded with JSON response', data)
-    }).catch(function(error) {
-      console.log('request failed', error)
-    });
+
 
   }); }
