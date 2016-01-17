@@ -42,23 +42,18 @@ if (hash.indexOf('#fxa:') == 0) {
     //above although filter for unknown user id is used, it shows that the record exists
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
-    .then(parseJSON)
-        }).catch(function(error) {
+  //  .then(parseJSON)
+    .then(function(data) {
+      console.log('request succeeded with JSON response', data)
+    }).catch(function(error) {
       console.log('request failed', error)
     });
 
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) { //this indicates that record is already present in central repository
-          //retrieve(user_record_id);
-          console.log(response.statusText);
-          fetch(url,{method:'get',
-                    headers: {'Authorization': authorization}})
-          .then(function (response){
-            console.log(response.json())
-          })
-
-
+         console.log(response.statusText);   //returns ok even if record isnt present
+        return response
        }
        else {
          if( response.status == 404){
@@ -68,12 +63,12 @@ if (hash.indexOf('#fxa:') == 0) {
                 data:{//user_id: sessionStorage.getItem('user_id'),
                       url: sessionStorage.getItem('kinto_server')
               }})
-            })
+              })
          }
          else{
-           var error = new Error(response.statusText)
-           error.response = response
-           throw error
+       var error = new Error(response.statusText)
+       error.response = response
+       throw error
      }}
 }
 
@@ -88,8 +83,4 @@ function parseJSON(response) {
     for(var i = 0; i < str.length; ++i)
       cc.push(str.charCodeAt(i));
     return cc;
-  }
-
-function retrieve(user_record_id){
-
 }
