@@ -75,8 +75,7 @@ if (hash.indexOf('#fxa:') == 0) {
      }}
 }
 
-function parseJSON() {
-  if(response.statusText == 'OK')
+function parseJSON(response) {
       return response.json()
 }
 
