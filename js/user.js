@@ -1,5 +1,8 @@
 function authenticate(){
-    var storageServer = "https://kinto.dev.mozaws.net/v1";
+    var storageServer = document.getElementById("kinto_server").value;
+    if (storageServer == ''){
+      storageServer = "https://kinto.dev.mozaws.net/v1"  //default
+    }
     sessionStorage.setItem('kinto_server',storageServer);
    function loginURI(website) {
       var currentWebsite = website.replace(/#.*/, '');
