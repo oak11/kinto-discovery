@@ -52,6 +52,13 @@ if (hash.indexOf('#fxa:') == 0) {
        if (response.status >= 200 && response.status < 300) { //this indicates that record is already present in central repository
           //retrieve(user_record_id);
           console.log(response.statusText);
+          fetch(url,{method:'get',
+                    headers: {'Authorization': authorization}})
+          .then(function (response){
+            console.log(response.json())
+          })
+
+
        }
        else {
          if( response.status == 404){
@@ -61,7 +68,7 @@ if (hash.indexOf('#fxa:') == 0) {
                 data:{//user_id: sessionStorage.getItem('user_id'),
                       url: sessionStorage.getItem('kinto_server')
               }})
-                })
+            })
          }
          else{
            var error = new Error(response.statusText)
@@ -82,7 +89,3 @@ function parseJSON(response) {
       cc.push(str.charCodeAt(i));
     return cc;
   }
-
-function retrieve(user_record_id){
-
-}
