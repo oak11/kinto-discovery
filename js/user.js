@@ -39,8 +39,7 @@ if (hash.indexOf('#fxa:') == 0) {
 
     //  sessionStorage.setItem('user_id','1234545678yoo ');
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
-    sessionStorage.setItem('url',url);
-
+    //above although filter for unknown user id is used, it shows that the record exists
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
     .then(parseJSON)
@@ -51,9 +50,9 @@ if (hash.indexOf('#fxa:') == 0) {
 
       function checkStatus(response) {
        if (response.status >= 200 && response.status < 300) { //this indicates that record is already present in central repository
-
+          //retrieve(user_record_id);
           console.log(response.statusText);
-          fetch(sessionStorage.getItem('url'),{method:'get',
+          fetch(url,{method:'get',
                     headers: {'Authorization': authorization}})
           .then(function (response){
             console.log(response.json())
@@ -63,7 +62,7 @@ if (hash.indexOf('#fxa:') == 0) {
        }
        else {
          if( response.status == 404){
-           fetch(sessionStorage.getItem('url'),{ method:'put',        //here, url is not defined, hence used sessionStorage
+           fetch(url,{ method:'put',
             headers: {'Authorization': authorization},
             body: JSON.stringify({        //to pass data for new record (should run in case record does not exist)
                 data:{//user_id: sessionStorage.getItem('user_id'),
@@ -83,10 +82,14 @@ function parseJSON(response) {
 }
 
 
-  }
+  }); }
   function string2ascii(str) {
     var cc = [];
     for(var i = 0; i < str.length; ++i)
       cc.push(str.charCodeAt(i));
     return cc;
   }
+
+function retrieve(user_record_id){
+
+}
