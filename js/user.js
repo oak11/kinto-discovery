@@ -45,7 +45,7 @@ if (hash.indexOf('#fxa:') == 0) {
     //above although filter for unknown user id is used, it shows that the record exists
     fetch(url,{ headers: {'Authorization': authorization}})
     .then(checkStatus)
-    .then(parseJSON)
+  //  .then(parseJSON)
     .then(function(data) {
       console.log('request succeeded with JSON response', data)
     }).catch(function(error) {
@@ -75,10 +75,10 @@ if (hash.indexOf('#fxa:') == 0) {
      }}
 }
 
-function parseJSON(response) {
+/*function parseJSON(response) {
       return response.json()
 }
-
+*/
 
   }); }
   function string2ascii(str) {
