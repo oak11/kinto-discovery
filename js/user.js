@@ -82,7 +82,7 @@ function parseJSON(response) {
 }
 
 
-  }); }
+  } 
   function string2ascii(str) {
     var cc = [];
     for(var i = 0; i < str.length; ++i)
