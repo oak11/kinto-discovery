@@ -43,7 +43,8 @@ if (hash.indexOf('#fxa:') == 0) {
     //  sessionStorage.setItem('user_id','1234545678yoo ');
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
     //above although filter for unknown user id is used, it shows that the record exists
-    fetch(url,{ headers: {'Authorization': authorization}})
+
+    fetch(url,{ headers})
     .then(checkStatus)
   //  .then(parseJSON)
     .then(function(data) {
@@ -60,12 +61,13 @@ if (hash.indexOf('#fxa:') == 0) {
        }
        else {
          if( response.status == 404){
-           fetch(url,{ method:'put',
-            headers: {'Authorization': authorization},
-            body: JSON.stringify({        //to pass data for new record (should run in case record does not exist)
-                data:{//user_id: sessionStorage.getItem('user_id'),
-                      url: sessionStorage.getItem('kinto_server')
-              }})
+           var body = JSON.stringify({        //to pass data for new record (should run in case record does not exist)
+               data:{//user_id: sessionStorage.getItem('user_id'),
+                     url: sessionStorage.getItem('kinto_server')
+             }});
+             console.log(body);
+           fetch(url,{ method:'put', headers,
+            body
               })
          }
          else{
