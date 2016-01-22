@@ -33,7 +33,7 @@ if (hash.indexOf('#fxa:') == 0) {
     })
     .then(function(user_id) {
       console.log(user_id);
-      var authorization =  "Basic " + btoa("user:password");
+      //var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
       var collection = 'users'
       var hash = md5(user_id);
@@ -45,42 +45,20 @@ if (hash.indexOf('#fxa:') == 0) {
     //above although filter for unknown user id is used, it shows that the record exists
 
     fetch(url,{ headers})
-    .then(checkStatus)
-  //  .then(parseJSON)
+
     .then(function(data) {
-      console.log('request succeeded with JSON response', data)
+      console.log(response.statusText);
+      return response
     }).catch(function(error) {
-      console.log('request failed', error)
+      var body = JSON.stringify({        //to pass data for new record (should run in case record does not exist)
+          data:{//user_id: sessionStorage.getItem('user_id'),
+                url: sessionStorage.getItem('kinto_server')
+        }});
+        console.log(body);
+      return fetch(url,{ method:'put', headers,
+       body
+     });
     });
-
-
-      function checkStatus(response) {
-       if (response.status >= 200 && response.status < 300) { //this indicates that record is already present in central repository
-         console.log(response.statusText);   //returns ok even if record isnt present
-        return response
-       }
-       else {
-         if( response.status == 404){
-           var body = JSON.stringify({        //to pass data for new record (should run in case record does not exist)
-               data:{//user_id: sessionStorage.getItem('user_id'),
-                     url: sessionStorage.getItem('kinto_server')
-             }});
-             console.log(body);
-           fetch(url,{ method:'put', headers,
-            body
-              })
-         }
-         else{
-       var error = new Error(response.statusText)
-       error.response = response
-       throw error
-     }}
-}
-
-/*function parseJSON(response) {
-      return response.json()
-}
-*/
 
   }); }
   function parseHexString(str) {
