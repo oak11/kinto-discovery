@@ -37,7 +37,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository'
       var collection = 'users'
       var hash = md5(user_id);
-      var input = string2ascii(hash);
+      var input = parseHexString(hash);
       var user_record_id = uuid.v4({random: input});
 
     //  sessionStorage.setItem('user_id','1234545678yoo ');
@@ -81,9 +81,13 @@ if (hash.indexOf('#fxa:') == 0) {
 */
 
   }); }
-  function string2ascii(str) {
-    var cc = [];
-    for(var i = 0; i < str.length; ++i)
-      cc.push(str.charCodeAt(i));
-    return cc;
-}
+  function parseHexString(str) {
+      var result = [];
+      while (str.length >= 2) {
+          result.push(parseInt(str.substring(0, 2), 16));
+
+          str = str.substring(2, str.length);
+      }
+
+      return result;
+  }
