@@ -18,7 +18,7 @@ function authenticate(){
  }
 
 var hash = window.location.hash;
-var headers = {};
+var headers =  {"Content-Type": "application/json"};
 
 if (hash.indexOf('#fxa:') == 0) {
   // We've got a token
@@ -44,7 +44,7 @@ if (hash.indexOf('#fxa:') == 0) {
     var url = storageServer+'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
     //above although filter for unknown user id is used, it shows that the record exists
 
-    fetch(url,{ headers})
+    fetch(url,{headers})
 
     .then(function(data) {
       console.log(response.statusText);
