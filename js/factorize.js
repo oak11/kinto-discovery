@@ -1,6 +1,7 @@
 var central_repository_server = "https://kinto.dev.mozaws.net/v1";
 var bucket = 'central-repository';
 var collection = 'users';
+var headers = authenticate();
 
 function getUserURL(user_storage_url)
 {
@@ -26,7 +27,7 @@ function registerUserURL(user_id){
   var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
-  fetch(url,authenticate())
+  fetch(url, headers)
 
   .then(function(data) {
 
@@ -51,7 +52,7 @@ function registerUserURL(user_id){
   return status;
 }
 
-function retrieve_user_storage(user_id){
+function retrieveUserStorage(user_id){
   //get values of user_id
   //user_id is hashed to obtain a record_id
   var hash = md5(user_id);
@@ -59,7 +60,7 @@ function retrieve_user_storage(user_id){
   var user_record_id = uuid.v4({random: input});
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
-  fetch(url, authenticate())
+  fetch(url, headers)
   .then(response => {
     if (response.status === 403) {
        return {url: "https://kinto.dev.mozaws.net/v1"};
