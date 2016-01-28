@@ -57,6 +57,7 @@ if (hash.indexOf('#fxa:') == 0) {
                 url: sessionStorage.getItem('kinto_server')
         }});
         console.log(body);
+        console.log(error);
       return fetch(url,{ method:'put', headers,
        body
      });
