@@ -23,7 +23,7 @@ function registerUserURL(user_id,url){
   url = url + user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
-  var headers = authenticate();
+  var headers = getAuthenticationHeaders();
   fetch(url, headers)
 
   .then(function(data) {
@@ -57,7 +57,7 @@ function retrieveUserStorage(user_id, url,default_server){
   var user_record_id = uuid.v4({random: input});
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
   url = url + user_record_id;
-  var headers = authenticate();
+  var headers = getAuthenticationHeaders();
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   fetch(url, headers)
   .then(response => {
