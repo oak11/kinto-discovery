@@ -1,6 +1,6 @@
-var central_repository_server = "https://kinto.dev.mozaws.net/v1";
-var bucket = 'central-repository';
-var collection = 'users';
+//var central_repository_server = "https://kinto.dev.mozaws.net/v1";
+//var bucket = 'central-repository';
+//var collection = 'users';
 var headers = authenticate();
 
 function getUserURL(user_storage_url)
@@ -17,14 +17,15 @@ function getUserURL(user_storage_url)
    return storageServer; //i.e. url
 }
 
-function registerUserURL(user_id){
+function registerUserURL(user_id,url){
   //gets the user_id
   //user_id is hashed to obtain a record_id
   var hash = md5(user_id);
   var input = parseHexString(hash);
   var user_record_id = uuid.v4({random: input});
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
-  var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
+  //var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
+  url = url + user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
   fetch(url, headers)
@@ -52,13 +53,14 @@ function registerUserURL(user_id){
   return status;
 }
 
-function retrieveUserStorage(user_id){
+function retrieveUserStorage(user_id, url){
   //get values of user_id
   //user_id is hashed to obtain a record_id
   var hash = md5(user_id);
   var input = parseHexString(hash);
   var user_record_id = uuid.v4({random: input});
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
+  url = url + user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   fetch(url, headers)
   .then(response => {
@@ -72,7 +74,7 @@ function retrieveUserStorage(user_id){
      return url;
 }
 
-function authenticate(){
+function getAuthenticationHeaders(){
   //this function aims at solving the headers problem that may arise in above functions
   //this function will carry out FxA authentication.
   if (!token) {
