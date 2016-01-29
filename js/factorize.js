@@ -1,16 +1,11 @@
-//var central_repository_server = "https://kinto.dev.mozaws.net/v1";
-//var bucket = 'central-repository';
-//var collection = 'users';
-var headers = authenticate();
-
-function getUserURL(user_storage_url)
+function getUserURL(user_storage_url, KINTO_DEFAULT_URL)
 {
   //takes the url of the storage server of the user.
-   storageServer - user_storage_url;
+   var storageServer = user_storage_url;
   // if user_storage_url has a value, it return this value
   // else it returns a default value:https://kinto.dev.mozaws.net/v1
   if (storageServer == ''){
-    storageServer = "https://kinto.dev.mozaws.net/v1"  //default
+    storageServer = KINTO_DEFAULT_URL;  //default
   }
 
   //maybe we can validate the url entered here.
@@ -28,6 +23,7 @@ function registerUserURL(user_id,url){
   url = url + user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
+  var headers = authenticate();
   fetch(url, headers)
 
   .then(function(data) {
@@ -53,7 +49,7 @@ function registerUserURL(user_id,url){
   return status;
 }
 
-function retrieveUserStorage(user_id, url){
+function retrieveUserStorage(user_id, url,default_server){
   //get values of user_id
   //user_id is hashed to obtain a record_id
   var hash = md5(user_id);
@@ -61,11 +57,12 @@ function retrieveUserStorage(user_id, url){
   var user_record_id = uuid.v4({random: input});
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
   url = url + user_record_id;
+  var headers = authenticate();
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   fetch(url, headers)
   .then(response => {
     if (response.status === 403) {
-       return {url: "https://kinto.dev.mozaws.net/v1"};
+       return {url: default_server};
       }
     return response.json();
     })
