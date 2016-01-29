@@ -1,4 +1,4 @@
-function getUserURL(user_storage_url, KINTO_DEFAULT_URL)
+/*function getUserURL(user_storage_url, KINTO_DEFAULT_URL)
 {
   //takes the url of the storage server of the user.
    var storageServer = user_storage_url;
@@ -11,8 +11,8 @@ function getUserURL(user_storage_url, KINTO_DEFAULT_URL)
   //maybe we can validate the url entered here.
    return storageServer; //i.e. url
 }
-
-function registerUserURL(user_id,url){
+*/
+function registerUserURL(user_id, url, headers){
   //gets the user_id
   //user_id is hashed to obtain a record_id
   var hash = md5(user_id);
@@ -23,7 +23,7 @@ function registerUserURL(user_id,url){
   url = url + user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
-  var headers = getAuthenticationHeaders();
+  //var headers = getAuthenticationHeaders();
   fetch(url, headers)
 
   .then(function(data) {
@@ -49,7 +49,7 @@ function registerUserURL(user_id,url){
   return status;
 }
 
-function retrieveUserStorage(user_id, url,default_server){
+function retrieveUserStorage(user_id, url, default_server, headers){
   //get values of user_id
   //user_id is hashed to obtain a record_id
   var hash = md5(user_id);
@@ -57,7 +57,7 @@ function retrieveUserStorage(user_id, url,default_server){
   var user_record_id = uuid.v4({random: input});
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
   url = url + user_record_id;
-  var headers = getAuthenticationHeaders();
+  //var headers = getAuthenticationHeaders();
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   fetch(url, headers)
   .then(response => {
@@ -71,7 +71,7 @@ function retrieveUserStorage(user_id, url,default_server){
      return url;
 }
 
-function getAuthenticationHeaders(){
+/*function getAuthenticationHeaders(){
   //this function aims at solving the headers problem that may arise in above functions
   //this function will carry out FxA authentication.
   if (!token) {
@@ -96,7 +96,7 @@ function getAuthenticationHeaders(){
   return headers;
 }
 
-
+*/
 function parseHexString(str) {
     var result = [];
     while (str.length >= 2) {
