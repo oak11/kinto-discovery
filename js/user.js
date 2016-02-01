@@ -33,7 +33,12 @@ if (hash.indexOf('#fxa:') == 0) {
     .then(function (result) {
       return result.user.id;
     })
-    .then(function(user_id) {
+    .then( function(user_id){
+      var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'
+      registerUserURL(user_id, url, headers)
+    }
+
+      /*function(user_id) {
       console.log(user_id);
       //var authorization =  "Basic " + btoa("user:password");
       var bucket = 'central-repository'
@@ -42,7 +47,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var input = parseHexString(hash);
       var user_record_id = uuid.v4({random: input});
 
-    //  sessionStorage.setItem('user_id','1234545678yoo ');
+
     var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
     //above although filter for unknown user id is used, it shows that the record exists
 
@@ -57,13 +62,16 @@ if (hash.indexOf('#fxa:') == 0) {
                 url: sessionStorage.getItem('kinto_server')
         }});
         console.log(body);
-        
+
       return fetch(url,{ method:'put', headers,
        body
      });
     });
 
-  }); }
+  }
+*/
+);
+}
   function parseHexString(str) {
       var result = [];
       while (str.length >= 2) {

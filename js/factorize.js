@@ -42,7 +42,7 @@ function registerUserURL(user_id, url, headers){
     return fetch(url,{ method:'put', headers,
      body
    })
-   .then(function (response){
+   .then(function (response){           //?
    status = "record created"
   // if record is successfully created, set status=created
   //if record exists set status=record exists
