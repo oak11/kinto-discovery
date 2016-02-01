@@ -31,7 +31,7 @@ function registerUserURL(user_id, url, headers){
     console.log(data.statusText);
     //if (statusText == 'OK'){
       //status= "record already exists";
-    }
+    //}
     return response
   }).catch(function(error) {
     var body = JSON.stringify({
