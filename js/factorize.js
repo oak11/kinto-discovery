@@ -24,7 +24,7 @@ function registerUserURL(user_id, url, headers){
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
   //var headers = getAuthenticationHeaders();
-  fetch(url, headers)
+  fetch(url, {headers})
 
   .then(function(data) {
 
@@ -62,7 +62,7 @@ function retrieveUserStorage(user_id, url, default_server, headers){
   url = url + user_record_id;
   //var headers = getAuthenticationHeaders();
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
-  return fetch(url, headers)
+  return fetch(url, {headers})
   .then(response => {
     if (response.status === 403) {
        return {url: default_server};
