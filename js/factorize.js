@@ -16,6 +16,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   .then(function(data) {
 
     console.log(data.statusText);
+    console.log(data);
     //if (statusText == 'OK'){
       //status= "record already exists";
     //}
@@ -32,7 +33,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
    })
  }
     else {
-      console.log(errors);
+      console.log(error);
     }
 });
 }
@@ -57,7 +58,8 @@ function retrieveUserStorage(user_id, central_repository_server, default_server,
     .then(function (response){
   // if record exists: url is returned
   // if record does not exist, default:https://kinto.dev.mozaws.net/v1 is used
-     return response["url"];
+  console.log(response.data.url);
+     return response.data.url;           //should return url
 });
 }
 
