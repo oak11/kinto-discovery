@@ -20,7 +20,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
     //if (statusText == 'OK'){
       //status= "record already exists";
     //}
-    return response
+    return data;
   }).catch(function(error) {
     if (error.status == 404){
     var body = JSON.stringify({
@@ -50,7 +50,7 @@ function retrieveUserStorage(user_id, central_repository_server, default_server,
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   return fetch(url, {headers})
   .then(response => {
-    if (response.statuscode === 403) {
+    if (response.statusCode == 403) {
        return {url: default_server};
       }
     return response.json();
