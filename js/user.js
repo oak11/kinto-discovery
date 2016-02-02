@@ -37,42 +37,10 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository';
       var collection = 'users';
       var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/' ;
-      registerUserURL(user_id, url, headers)
+      registerUserURL(user_id, url, headers, storageServer);
     }
 
-      /*function(user_id) {
-      console.log(user_id);
-      //var authorization =  "Basic " + btoa("user:password");
-      var bucket = 'central-repository'
-      var collection = 'users'
-      var hash = md5(user_id);
-      var input = parseHexString(hash);
-      var user_record_id = uuid.v4({random: input});
-
-
-    var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
-    //above although filter for unknown user id is used, it shows that the record exists
-
-    fetch(url,{headers})
-
-    .then(function(data) {
-      console.log(response.statusText);
-      return response
-    }).catch(function(error) {
-      var body = JSON.stringify({        //to pass data for new record (should run in case record does not exist)
-          data:{//user_id: sessionStorage.getItem('user_id'),
-                url: sessionStorage.getItem('kinto_server')
-        }});
-        console.log(body);
-
-      return fetch(url,{ method:'put', headers,
-       body
-     });
-    });
-
-  }
-*/
-);
+    );
 }
   function parseHexString(str) {
       var result = [];
