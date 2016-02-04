@@ -19,7 +19,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
     //if (statusText == 'OK'){
       //status= "record already exists";
     //}
-    return response
+    return data
   }).catch(function(error) {
     if (error.status == 404){
     var body = JSON.stringify({
