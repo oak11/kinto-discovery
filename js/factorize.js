@@ -13,7 +13,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   return fetch(url, {headers})
 
   .then(function(data) {
-    if (response.status >=200 && response.status <300){
+    if (data.status >=200 && data.status <300){
     console.log(data.statusText);
     console.log(data);
     localStorage.setItem('key', data);
