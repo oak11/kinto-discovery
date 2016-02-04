@@ -2,12 +2,11 @@
 function registerUserURL(user_id, central_repository_server, headers, user_storage_server){
   //gets the user_id
   //user_id is hashed to obtain a record_id
-  var hash = md5(user_id);
-  var input = parseHexString(hash);
-  var user_record_id = uuid.v4({random: input});
+
+  var user_record_id = getUserIDHash(user_id);
   // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
   //var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
-  url = central_repository_server+ user_record_id;
+  var url = central_repository_server+ user_record_id;
   //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
   var status;
   //var headers = getAuthenticationHeaders();
@@ -20,7 +19,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
     //if (statusText == 'OK'){
       //status= "record already exists";
     //}
-    return data;
+    return response
   }).catch(function(error) {
     if (error.status == 404){
     var body = JSON.stringify({
@@ -28,6 +27,10 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
               url: user_storage_server
       }});
       console.log(body);
+    /*  var store
+      var newrecord = Object.assign(user_id, body);
+     store.create(newrecord);
+     */
     return fetch(url,{ method:'put', headers,
      body
    })
@@ -39,28 +42,34 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
 }
 
 function retrieveUserStorage(user_id, central_repository_server, default_server, headers){
-  //get values of user_id
-  //user_id is hashed to obtain a record_id
-  var hash = md5(user_id);
-  var input = parseHexString(hash);
-  var user_record_id = uuid.v4({random: input});
-  // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
-  url = central_repository_server + user_record_id;
-  //var headers = getAuthenticationHeaders();
-  //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
+
+  var user_record_id = getUserIDHash(user_id);
+  var url = central_repository_server + user_record_id;
+  var key = 'kinto:server-url:' + user_id;
+  var cachedURL = localStorage.getItem('key');
+  if(cachedURL == null){
   return fetch(url, {headers})
-  .then(response => {
-    if (response.statusCode == 403) {
-       return {url: default_server};
-      }
-    return response.json();
-    })
-    .then(function (response){
-  // if record exists: url is returned
-  // if record does not exist, default:https://kinto.dev.mozaws.net/v1 is used
-  console.log(response.data.url);
-     return response.data.url;           //should return url
-});
+  .then(function (response){
+  if (response.status >=200 && response.status <300){
+     console.log(response.data.url);
+     localStorage.setItem('key', response.data.url);
+     return response.data.url;
+   }
+   if (response.status == 403) {
+
+     console.log("returned default server: "+ default_server);
+      return default_server;
+     }
+   return response;           //should return url
+})
+.catch(response => {
+      console.log(response); //return?  //does not go to catch
+  })
+}
+  else {
+    return cachedURL;
+  }
+
 }
 
 function parseHexString(str) {
@@ -72,4 +81,9 @@ function parseHexString(str) {
     }
 
     return result;
+}
+function getUserIDHash(user_id){
+  var hash = md5(user_id);
+  var input = parseHexString(hash);
+  return uuid.v4({random: input});
 }
