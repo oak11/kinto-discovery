@@ -1,4 +1,3 @@
-
 function registerUserURL(user_id, central_repository_server, headers, user_storage_server){
 
   var user_record_id = getUserIDHash(user_id);
@@ -15,12 +14,10 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   .then(function(data) {
     if (data.status >=200 && data.status <300){
     console.log(data.statusText);
-    console.log(data);
     localStorage.setItem("key", data);
     return data;
     }
     if (data.status == 404 || data.status == 403){
-      console.log("no record existed, creating new record");
       var body = JSON.stringify({
           data:{
                 url: user_storage_server
