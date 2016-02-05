@@ -4,7 +4,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   var user_record_id = getUserIDHash(user_id);
 
   var key = 'kinto:server-url:' + user_id;
-  var cachedURL = localStorage.getItem(key);
+  var cachedURL = localStorage.getItem("key");
   if(cachedURL != null){
     return cachedURL;
   }
@@ -15,16 +15,16 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   .then(function(data) {
     if (data.status >=200 && data.status <300){
     console.log(data.statusText);
-    console.log(data);
-    localStorage.setItem(key, data);
+    localStorage.setItem("key", data);
+    return data;
     }
-    if(data.status == 404 || data.status == 403){
+    if (data.status == 404 || data.status == 403){
       var body = JSON.stringify({
           data:{
                 url: user_storage_server
         }});
       return fetch(url,{ method:'put', headers,
-              body})
+              body});
     }
     return data;
   }).catch(function(error) {
