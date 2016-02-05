@@ -37,7 +37,7 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository';
       var collection = 'users';
       var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/' ;
-      registerUserURL(user_id, url, headers, storageServer);
+      registerUserURL(user_id, url, headers, storageServer)
     }
 
     );
