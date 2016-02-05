@@ -1,49 +1,35 @@
 function registerUserURL(user_id, central_repository_server, headers, user_storage_server){
 
   var user_record_id = getUserIDHash(user_id);
-  // with the above details, a url to be fetched is generated eg var url= "buckets/"+ buckets+ "/collections/"+collection...
-  //var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/'+ user_record_id;
+
   var key = 'kinto:server-url:' + user_id;
-  var cachedURL = localStorage.getItem('key');
-  if(cachedURL == null){
+  var cachedURL = localStorage.getItem(key);
+  if(cachedURL != null){
+    return cachedURL;
+  }
   url = central_repository_server+ user_record_id;
-  //a fetch function on central repository - fetch(url,{headers}) : here, headers may create a problem.
-  var status;
-  //var headers = getAuthenticationHeaders();
+
   return fetch(url, {headers})
 
   .then(function(data) {
     if (data.status >=200 && data.status <300){
     console.log(data.statusText);
     console.log(data);
-    localStorage.setItem('key', data);
-  }
-    //if (statusText == 'OK'){
-      //status= "record already exists";
-    //}
+    localStorage.setItem(key, data);
+    }
+    if(data.status == 404 || data.status == 403){
+      var body = JSON.stringify({
+          data:{
+                url: user_storage_server
+        }});
+      return fetch(url,{ method:'put', headers,
+              body})
+    }
     return data;
   }).catch(function(error) {
-    if (error.status == 404){
-    var body = JSON.stringify({
-        data:{
-              url: user_storage_server
-      }});
-      console.log(body);
-    return fetch(url,{ method:'put', headers,
-     body
-   })
- }
-    else {
-      console.log(error);
+          console.log(error);
     }
-});
-}
-
-else{
-  return cachedURL;
-}
-
-}
+  }
 
 function retrieveUserStorage(user_id, central_repository_server, default_server, headers){
 
