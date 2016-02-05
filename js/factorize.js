@@ -29,7 +29,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
     return data;
   }).catch(function(error) {
           console.log(error);
-    }
+    });
   }
 
 function retrieveUserStorage(user_id, central_repository_server, default_server, headers){
