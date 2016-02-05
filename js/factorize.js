@@ -9,9 +9,8 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   }
   url = central_repository_server+ user_record_id;
 
-  return fetch(url, {headers})
-
-  .then(function(data) {
+  fetch(url, {headers})
+   .then(function(data) {
     if (data.status >=200 && data.status <300){
     console.log(data);
     localStorage.setItem("key", data);
