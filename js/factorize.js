@@ -15,6 +15,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
   .then(function(data) {
     if (data.status >=200 && data.status <300){
     console.log(data.statusText);
+    console.log(data);
     localStorage.setItem("key", data);
     return data;
     }
