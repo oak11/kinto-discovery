@@ -20,6 +20,7 @@ function registerUserURL(user_id, central_repository_server, headers, user_stora
     return data;
     }
     if (data.status == 404 || data.status == 403){
+      console.log("no record existed, creating new record");
       var body = JSON.stringify({
           data:{
                 url: user_storage_server
