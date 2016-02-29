@@ -37,9 +37,9 @@ if (hash.indexOf('#fxa:') == 0) {
       var bucket = 'central-repository';
       var collection = 'users';
       var url = central_repository_server +'/buckets/'+ bucket +'/collections/'+ collection + '/records/' ;
-      registerUserURL(user_id, url, headers, storageServer)
+      KintoDiscovery.registerUserURL(user_id, url, headers, storageServer, localStorage)
       .then(function(response){
-      console.log(response.data.url);
+      console.log(response);
     });
     }
 
