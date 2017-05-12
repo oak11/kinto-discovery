@@ -158,11 +158,11 @@
                     <li>
                         <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Start Here</a>
                     </li>
-                     <li>
-                        <a href="search.html"><i class="fa fa-fw fa-edit"></i> Search user ID</a>
+                     <li class="active">
+                        <a href="search.html"><i class="fa fa-fw fa-edit"></i> Search User ID</a>
                     </li>
                     <li>
                         <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
@@ -200,14 +200,14 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Start Here
+                            Search
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-edit"></i> Start Here
+                                <i class="fa fa-edit"></i> Search
                             </li>
                         </ol>
                     </div>
@@ -216,54 +216,11 @@
 
                 <div class="row">
                     <div class="col-lg-6">
+                        <h1> Hi </h1>
 
-                        <form role="form" id="form">
+                        <p>For complete documentation, please visit <a href="https://kinto.readthedocs.org/en/latest/">Kinto documentation</a>.</p>
 
-                            <div class="form-group">
-                                <label>Enter User ID</label>
-                                <input class="form-control" type="text" name="title" placeholder="User ID Here">
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label>Enter URL of server</label>
-                                <input class="form-control" type="text" name="url" placeholder="URL">
-                            </div>
-
-                            <br>
-
-                            <input class="btn btn-primary" type="submit" value="Add">
-                            <button type="reset" class="btn btn-default">Reset Button</button>
-
-                        </form>
-                        <hr>
-                            <div class="row">
-
-                                <ul id="tasks" class="list-group"></ul>
-                                <button id="clearCompleted" class="btn">Clear completed</button>
-                                <button id="sync" class="btn">Synchronize</button>
-
-
-                            </div>
-                            <template id="task-tpl">
-                              <li class="list-group-item">
-                                <label>
-                                  <input class="done" type="checkbox">
-                                  <span class="title"></span><br>
-                                  <span class="uuid"></span>
-                                </label>
-                                <br>
-                                <span class="url"></span>
-                                <span class="user_id"></span>
-                              </li>
-                            </template>
-                          </div>
-                        <br>
-                        <p>For complete documentation, please visit <a href="https://kinto.readthedocs.io/en/latest/">Kinto documentation</a>.</p>
                     </div>
-
-
-
-
 
                 </div>
                 <!-- /.row -->
@@ -279,12 +236,14 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-    <script src="js/md5.min.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="http://unpkg.com/kinto@1.1.2/dist/kinto-1.1.2.js"></script>
+    <script src="js/factorize.js"></script>
     <script src="js/user.js"></script>
-
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.1.0/js/md5.min.js"></script>
+    <script type="text/javascript" src="//npmcdn.com/node-uuid@1.4.7"></script>
+    <script src="//npmcdn.com/kinto-discovery@0.0.1/dist/kinto-discovery.min.js"></script>
 </body>
 
 </html>
